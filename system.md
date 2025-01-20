@@ -51,6 +51,17 @@ flowchart TD
             LiquidityService -->|AMQP| RabbitMQ
             FeeService[Fee Service] -->|HTTP| CEX
             FeeService -->|AMQP| RabbitMQ
+
+            %% Добавленные сервисы
+            Simulator[Simulator Service] -->|HTTP| MM
+            Simulator -->|AMQP| RabbitMQ
+            Simulator -->|SQL| PostgreSQL
+            RiskAssessment[Risk Assessment Service] -->|HTTP| MM
+            RiskAssessment -->|AMQP| RabbitMQ
+            RiskAssessment -->|SQL| PostgreSQL
+            Backtest[Backtest Service] -->|HTTP| MM
+            Backtest -->|AMQP| RabbitMQ
+            Backtest -->|SQL| PostgreSQL
         end
 
         subgraph БД[Базы данных и кэш]
@@ -64,6 +75,9 @@ flowchart TD
             PostgreSQL -->|Хранение данных| CEX
             PostgreSQL -->|Хранение данных| DEX
             PostgreSQL -->|Хранение данных| Config
+            PostgreSQL -->|Хранение данных| Simulator
+            PostgreSQL -->|Хранение данных| RiskAssessment
+            PostgreSQL -->|Хранение данных| Backtest
         end
 
         subgraph Ключи[Управление ключами]
@@ -155,6 +169,17 @@ flowchart TD
             LiquidityService -->|AMQP| RabbitMQ
             FeeService[Fee Service] -->|HTTP| CEX
             FeeService -->|AMQP| RabbitMQ
+
+            %% Добавленные сервисы
+            Simulator[Simulator Service] -->|HTTP| MM
+            Simulator -->|AMQP| RabbitMQ
+            Simulator -->|SQL| RDS
+            RiskAssessment[Risk Assessment Service] -->|HTTP| MM
+            RiskAssessment -->|AMQP| RabbitMQ
+            RiskAssessment -->|SQL| RDS
+            Backtest[Backtest Service] -->|HTTP| MM
+            Backtest -->|AMQP| RabbitMQ
+            Backtest -->|SQL| RDS
         end
 
         subgraph БД[Базы данных и кэш]
@@ -168,6 +193,9 @@ flowchart TD
             RDS -->|Хранение данных| CEX
             RDS -->|Хранение данных| DEX
             RDS -->|Хранение данных| Config
+            RDS -->|Хранение данных| Simulator
+            RDS -->|Хранение данных| RiskAssessment
+            RDS -->|Хранение данных| Backtest
         end
 
         subgraph Ключи[Управление ключами]

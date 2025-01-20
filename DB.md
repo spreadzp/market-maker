@@ -3,30 +3,34 @@
 
 ### Описание таблиц
 
-| **Название таблицы**       | **Описание**                                                                 | **Поля**                                                                                   |
-|----------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| **Users**                  | Хранение информации о пользователях системы.                                | `id`, `username`, `email`, `password_hash`, `role`, `created_at`, `updated_at`            |
-| **Exchanges**              | Хранение информации о биржах (CEX и DEX).                                   | `id`, `name`, `type` (CEX/DEX), `api_key_hash`, `api_secret_hash`, `created_at`, `updated_at` |
-| **Pairs**                  | Хранение информации о торговых парах.                                       | `id`, `base_asset`, `quote_asset`, `exchange_id`, `min_amount`, `max_amount`, `created_at`|
-| **Orders**                 | Хранение информации о ордерах (покупка/продажа).                            | `id`, `pair_id`, `exchange_id`, `type` (buy/sell), `price`, `amount`, `status`, `created_at`, `updated_at` |
-| **OrderBook**              | Хранение информации об ордербуке (стакане) для каждой пары на бирже.        | `id`, `pair_id`, `exchange_id`, `bid_price`, `ask_price`, `bid_amount`, `ask_amount`, `timestamp` |
-| **Prices**                 | Хранение исторических данных о ценах.                                       | `id`, `pair_id`, `exchange_id`, `price`, `timestamp`                                       |
-| **Balances**               | Хранение информации о балансах на аккаунтах.                                | `id`, `account_id`, `asset`, `balance`, `locked_balance`, `created_at`, `updated_at`      |
-| **Transactions**           | Хранение информации о транзакциях (пополнения, выводы, переводы).           | `id`, `account_id`, `type` (deposit/withdraw/transfer), `amount`, `asset`, `timestamp`    |
-| **Strategies**             | Хранение информации о стратегиях маркет-мейкера.                            | `id`, `name`, `description`, `parameters`, `created_at`, `updated_at`                     |
-| **ArbitrageOpportunities** | Хранение информации о возможностях арбитража между биржами.                 | `id`, `pair_id`, `cex_exchange_id`, `dex_exchange_id`, `cex_price`, `dex_price`, `profit`, `timestamp` |
-| **Logs**                   | Хранение логов системы (ошибки, события).                                   | `id`, `level` (info/warn/error), `message`, `timestamp`                                   |
-| **Backups**                | Хранение информации о бэкапах базы данных.                                  | `id`, `backup_name`, `size`, `status`, `created_at`                                       |
-| **ArchivedData**           | Хранение архивных данных (например, старых ордеров, цен).                   | `id`, `table_name`, `data`, `archived_at`                                                 |
-| **Notifications**          | Хранение информации о уведомлениях (например, сбои, остановки сервисов).    | `id`, `type` (email/telegram), `message`, `status` (sent/failed), `timestamp`             |
-| **Configurations**         | Хранение конфигураций системы (настройки бирж, пар, стратегий).             | `id`, `key`, `value`, `description`, `created_at`, `updated_at`                           |
-| **Wallets**                | Хранение информации о кошельках (CEX и DEX).                                | `id`, `exchange_id`, `address`, `private_key_hash`, `balance`, `created_at`, `updated_at` |
-| **Trades**                 | Хранение информации о сделках (исполненных ордерах).                        | `id`, `order_id`, `price`, `amount`, `fee`, `timestamp`                                   |
-| **LiquidityPools**         | Хранение информации о пулах ликвидности на DEX.                             | `id`, `pair_id`, `exchange_id`, `total_liquidity`, `timestamp`                            |
-| **Fees**                   | Хранение информации о комиссиях на биржах.                                  | `id`, `exchange_id`, `pair_id`, `maker_fee`, `taker_fee`, `timestamp`                     |
-| **Subgraphs**              | Хранение информации о саб-графах для DEX.                                   | `id`, `name`, `url`, `description`, `created_at`, `updated_at`                            |
-| **SubgraphData**           | Хранение данных, полученных из саб-графов.                                  | `id`, `subgraph_id`, `pair_id`, `data`, `timestamp`                                       |
-| **Alerts**                 | Хранение информации о триггерах и уведомлениях.                             | `id`, `type` (price/volume/balance), `condition`, `action`, `created_at`, `updated_at`    |
+| **Название таблицы**               | **Описание**                                                                 | **Поля**                                                                                   |
+|------------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| **Users**                          | Хранение информации о пользователях системы.                                | `id`, `username`, `email`, `password_hash`, `role`, `created_at`, `updated_at`            |
+| **Exchanges**                      | Хранение информации о биржах (CEX и DEX).                                   | `id`, `name`, `type` (CEX/DEX), `api_key_hash`, `api_secret_hash`, `created_at`, `updated_at` |
+| **Pairs**                          | Хранение информации о торговых парах.                                       | `id`, `base_asset`, `quote_asset`, `exchange_id`, `min_amount`, `max_amount`, `created_at`|
+| **Orders**                         | Хранение информации о ордерах (покупка/продажа).                            | `id`, `pair_id`, `exchange_id`, `type` (buy/sell), `price`, `amount`, `status`, `created_at`, `updated_at` |
+| **OrderBook**                      | Хранение информации об ордербуке (стакане) для каждой пары на бирже.        | `id`, `pair_id`, `exchange_id`, `bid_price`, `ask_price`, `bid_amount`, `ask_amount`, `timestamp` |
+| **Prices**                         | Хранение исторических данных о ценах.                                       | `id`, `pair_id`, `exchange_id`, `price`, `timestamp`                                       |
+| **Balances**                       | Хранение информации о балансах на аккаунтах.                                | `id`, `account_id`, `asset`, `balance`, `locked_balance`, `created_at`, `updated_at`      |
+| **Transactions**                   | Хранение информации о транзакциях (пополнения, выводы, переводы).           | `id`, `account_id`, `type` (deposit/withdraw/transfer), `amount`, `asset`, `timestamp`    |
+| **Strategies**                     | Хранение информации о стратегиях маркет-мейкера.                            | `id`, `name`, `description`, `parameters`, `created_at`, `updated_at`                     |
+| **ArbitrageOpportunities**         | Хранение информации о возможностях арбитража между биржами.                 | `id`, `pair_id`, `cex_exchange_id`, `dex_exchange_id`, `cex_price`, `dex_price`, `profit`, `timestamp` |
+| **Logs**                           | Хранение логов системы (ошибки, события).                                   | `id`, `level` (info/warn/error), `message`, `timestamp`                                   |
+| **Backups**                        | Хранение информации о бэкапах базы данных.                                  | `id`, `backup_name`, `size`, `status`, `created_at`                                       |
+| **ArchivedData**                   | Хранение архивных данных (например, старых ордеров, цен).                   | `id`, `table_name`, `data`, `archived_at`                                                 |
+| **Notifications**                  | Хранение информации о уведомлениях (например, сбои, остановки сервисов).    | `id`, `type` (email/telegram), `message`, `status` (sent/failed), `timestamp`             |
+| **Configurations**                 | Хранение конфигураций системы (настройки бирж, пар, стратегий).             | `id`, `key`, `value`, `description`, `created_at`, `updated_at`                           |
+| **Wallets**                        | Хранение информации о кошельках (CEX и DEX).                                | `id`, `exchange_id`, `address`, `private_key_hash`, `balance`, `created_at`, `updated_at` |
+| **Trades**                         | Хранение информации о сделках (исполненных ордерах).                        | `id`, `order_id`, `price`, `amount`, `fee`, `timestamp`                                   |
+| **LiquidityPools**                 | Хранение информации о пулах ликвидности на DEX.                             | `id`, `pair_id`, `exchange_id`, `total_liquidity`, `timestamp`                            |
+| **Fees**                           | Хранение информации о комиссиях на биржах.                                  | `id`, `exchange_id`, `pair_id`, `maker_fee`, `taker_fee`, `timestamp`                     |
+| **Subgraphs**                      | Хранение информации о саб-графах для DEX.                                   | `id`, `name`, `url`, `description`, `created_at`, `updated_at`                            |
+| **SubgraphData**                   | Хранение данных, полученных из саб-графов.                                  | `id`, `subgraph_id`, `pair_id`, `data`, `timestamp`                                       |
+| **Alerts**                         | Хранение информации о триггерах и уведомлениях.                             | `id`, `type` (price/volume/balance), `condition`, `action`, `created_at`, `updated_at`    |
+| **SimulatorOrders**                | Хранение симулированных ордеров.                                            | `id`, `order_id`, `symbol`, `side`, `price`, `quantity`, `status`, `created_at`           |
+| **SimulatedTrades**                | Хранение симулированных сделок.                                             | `id`, `trade_id`, `symbol`, `price`, `quantity`, `timestamp`                              |
+| **RiskMetrics**                    | Хранение метрик риска для позиций.                                          | `id`, `position_id`, `var`, `max_drawdown`, `timestamp`                                   |
+| **BacktestResults**                | Хранение результатов бэктестов стратегий.                                   | `id`, `strategy_id`, `start_date`, `end_date`, `profit`, `max_drawdown`, `sharpe_ratio`, `timestamp` |
 
 ## Схема связей между таблицами баз данных
 =============================================
@@ -212,12 +216,39 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
-    Simulator {
+    SimulatorOrders {
         int id
-        int exchange_id
-        int order_id
+        UUID order_id
+        string symbol
+        string side
         float price
-        float amount
+        float quantity
+        string status
+        datetime created_at
+    }
+    SimulatedTrades {
+        int id
+        UUID trade_id
+        string symbol
+        float price
+        float quantity
+        datetime timestamp
+    }
+    RiskMetrics {
+        int id
+        UUID position_id
+        float var
+        float max_drawdown
+        datetime timestamp
+    }
+    BacktestResults {
+        int id
+        UUID strategy_id
+        datetime start_date
+        datetime end_date
+        float profit
+        float max_drawdown
+        float sharpe_ratio
         datetime timestamp
     }
 
@@ -256,7 +287,8 @@ erDiagram
     Subgraphs ||--o{ SubgraphData : "provides"
     SubgraphData ||--o{ Prices : "used_for"
     Alerts ||--o{ Notifications : "triggers"
-    Simulator ||--o{ Exchanges : "simulates"
-    Simulator ||--o{ Orders : "simulates"
-    Simulator ||--o{ Prices : "simulates"
+    SimulatorOrders ||--o{ Orders : "simulates"
+    SimulatedTrades ||--o{ Trades : "simulates"
+    RiskMetrics ||--o{ Positions : "assesses"
+    BacktestResults ||--o{ Strategies : "tests"
 ```

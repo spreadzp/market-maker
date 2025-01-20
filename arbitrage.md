@@ -104,3 +104,40 @@
     "timestamp": "2023-10-01 12:00:00"
 }
 ```
+
+
+Схема взаимодействия Arbitrage Service
+```mermaid
+classDiagram
+    class ArbitrageService {
+        +findArbitrageOpportunities(): List~ArbitrageOpportunity~
+        +executeArbitrage(opportunity: ArbitrageOpportunity): void
+        +monitorPrices(): void
+    }
+
+    class MarketMakerService {
+        +getOrderBook(pairId: UUID): OrderBook
+        +placeOrder(order: Order): OrderStatus
+        +cancelOrder(orderId: UUID): void
+    }
+
+    class Database {
+        +saveArbitrageOpportunity(opportunity: ArbitrageOpportunity): void
+        +getArbitrageOpportunities(): List~ArbitrageOpportunity~
+        +saveTrade(trade: Trade): void
+    }
+
+    class RabbitMQ {
+        +publish(message: Message): void
+        +subscribe(queue: String, callback: Function): void
+    }
+
+    class PriceFeedService {
+        +getPrices(pairId: UUID): List~Price~
+    }
+
+    ArbitrageService --> MarketMakerService : Получает данные о стакане заявок
+    ArbitrageService --> PriceFeedService : Получает актуальные цены
+    ArbitrageService --> Database : Сохраняет арбитражные возможности и сделки
+    ArbitrageService --> RabbitMQ : Отправляет уведомления о найденных возможностях
+``` 
