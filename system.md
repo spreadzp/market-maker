@@ -40,7 +40,7 @@ flowchart TD
             Alerting -->|Telegram/Email| Notification
 
             %% Сервис для работы с базой данных
-            DBMaintenance[Database Maintenance Service] -->|SQL| PostgreSQL[(PostgreSQL)]
+            DBMaintenance[Database Maintenance Service] -->|SQL| PostgreSQL
             DBMaintenance -->|HTTP| Monitoring
             DBMaintenance -->|AMQP| RabbitMQ
 
@@ -53,7 +53,7 @@ flowchart TD
             FeeService -->|AMQP| RabbitMQ
         end
 
-        subgraph Базы данных и кэш
+        subgraph БД[Базы данных и кэш]
             Redis[(Redis)] -->|Кэширование| MM
             Redis -->|Кэширование| CEX
             Redis -->|Кэширование| DEX
@@ -66,12 +66,12 @@ flowchart TD
             PostgreSQL -->|Хранение данных| Config
         end
 
-        subgraph Управление ключами
+        subgraph Ключи[Управление ключами]
             KeyMgmt[Key Management] -->|API Keys| CEX
             KeyMgmt -->|Private Keys| DEX
         end
 
-        subgraph Внешние API
+        subgraph API[Внешние API]
             Swagger[Swagger API] -->|Документация| API
         end
     end
@@ -144,7 +144,7 @@ flowchart TD
             Alerting -->|Telegram/Email| Notification
 
             %% Сервис для работы с базой данных
-            DBMaintenance[Database Maintenance Service] -->|SQL| RDS[RDS (PostgreSQL)]
+            DBMaintenance[Database Maintenance Service] -->|SQL| RDS
             DBMaintenance -->|HTTP| Monitoring
             DBMaintenance -->|AMQP| RabbitMQ
 
@@ -157,34 +157,34 @@ flowchart TD
             FeeService -->|AMQP| RabbitMQ
         end
 
-        subgraph Базы данных и кэш
-            ElastiCache[ElastiCache (Redis)] -->|Кэширование| MM
+        subgraph БД[Базы данных и кэш]
+            ElastiCache[(ElastiCache)] -->|Кэширование| MM
             ElastiCache -->|Кэширование| CEX
             ElastiCache -->|Кэширование| DEX
             ElastiCache -->|Кэширование| CEXPriceFeed
             ElastiCache -->|Кэширование| DEXPriceFeed
             ElastiCache -->|Кэширование| SubgraphService
-            RDS[RDS (PostgreSQL)] -->|Хранение данных| MM
+            RDS[(RDS)] -->|Хранение данных| MM
             RDS -->|Хранение данных| CEX
             RDS -->|Хранение данных| DEX
             RDS -->|Хранение данных| Config
         end
 
-        subgraph Управление ключами
+        subgraph Ключи[Управление ключами]
             SecretsManager[Secrets Manager] -->|API Keys| CEX
             SecretsManager -->|Private Keys| DEX
         end
 
-        subgraph Внешние API
+        subgraph API[Внешние API]
             Swagger[Swagger API] -->|Документация| API
         end
 
         subgraph Оркестрация
-            ECS[ECS (Elastic Container Service)] -->|Запуск контейнеров| Микросервисы
+            ECS[ECS] -->|Запуск контейнеров| Микросервисы
             ECS -->|Запуск контейнеров| RabbitMQ
         end
 
-        subgraph Мониторинг и логи
+        subgraph Мониторинг[Мониторинг и логи]
             CloudWatch[CloudWatch] -->|Метрики и логи| Monitoring
             CloudWatch -->|Метрики и логи| Notification
             CloudWatch -->|Метрики и логи| Alerting

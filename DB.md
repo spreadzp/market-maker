@@ -33,10 +33,197 @@
 
 ```mermaid
 erDiagram
+    Users {
+        int id
+        string username
+        string email
+        string password_hash
+        string role
+        datetime created_at
+        datetime updated_at
+    }
+    Orders {
+        int id
+        int pair_id
+        int exchange_id
+        string type
+        float price
+        float amount
+        string status
+        datetime created_at
+        datetime updated_at
+    }
+    Exchanges {
+        int id
+        string name
+        string type
+        string api_key_hash
+        string api_secret_hash
+        datetime created_at
+        datetime updated_at
+    }
+    Pairs {
+        int id
+        string base_asset
+        string quote_asset
+        int exchange_id
+        float min_amount
+        float max_amount
+        datetime created_at
+    }
+    OrderBook {
+        int id
+        int pair_id
+        int exchange_id
+        float bid_price
+        float ask_price
+        float bid_amount
+        float ask_amount
+        datetime timestamp
+    }
+    Prices {
+        int id
+        int pair_id
+        int exchange_id
+        float price
+        datetime timestamp
+    }
+    Balances {
+        int id
+        int account_id
+        string asset
+        float balance
+        float locked_balance
+        datetime created_at
+        datetime updated_at
+    }
+    Transactions {
+        int id
+        int account_id
+        string type
+        float amount
+        string asset
+        datetime timestamp
+    }
+    Strategies {
+        int id
+        string name
+        string description
+        string parameters
+        datetime created_at
+        datetime updated_at
+    }
+    ArbitrageOpportunities {
+        int id
+        int pair_id
+        int cex_exchange_id
+        int dex_exchange_id
+        float cex_price
+        float dex_price
+        float profit
+        datetime timestamp
+    }
+    Logs {
+        int id
+        string level
+        string message
+        datetime timestamp
+    }
+    Backups {
+        int id
+        string backup_name
+        int size
+        string status
+        datetime created_at
+    }
+    ArchivedData {
+        int id
+        string table_name
+        string data
+        datetime archived_at
+    }
+    Notifications {
+        int id
+        string type
+        string message
+        string status
+        datetime timestamp
+    }
+    Configurations {
+        int id
+        string key
+        string value
+        string description
+        datetime created_at
+        datetime updated_at
+    }
+    Wallets {
+        int id
+        int exchange_id
+        string address
+        string private_key_hash
+        float balance
+        datetime created_at
+        datetime updated_at
+    }
+    Trades {
+        int id
+        int order_id
+        float price
+        float amount
+        float fee
+        datetime timestamp
+    }
+    LiquidityPools {
+        int id
+        int pair_id
+        int exchange_id
+        float total_liquidity
+        datetime timestamp
+    }
+    Fees {
+        int id
+        int exchange_id
+        int pair_id
+        float maker_fee
+        float taker_fee
+        datetime timestamp
+    }
+    Subgraphs {
+        int id
+        string name
+        string url
+        string description
+        datetime created_at
+        datetime updated_at
+    }
+    SubgraphData {
+        int id
+        int subgraph_id
+        int pair_id
+        string data
+        datetime timestamp
+    }
+    Alerts {
+        int id
+        string type
+        string condition
+        string action
+        datetime created_at
+        datetime updated_at
+    }
+    Simulator {
+        int id
+        int exchange_id
+        int order_id
+        float price
+        float amount
+        datetime timestamp
+    }
+
     Users ||--o{ Orders : "places"
     Users ||--o{ Balances : "has"
     Users ||--o{ Transactions : "performs"
-    Exchanges ||--o{ Pairs : "supports"
     Exchanges ||--o{ Orders : "hosts"
     Exchanges ||--o{ OrderBook : "provides"
     Exchanges ||--o{ Prices : "provides"
@@ -58,7 +245,6 @@ erDiagram
     Backups ||--o{ Configurations : "includes"
     ArchivedData ||--o{ Orders : "archives"
     ArchivedData ||--o{ Prices : "archives"
-    Notifications ||--o{ Users : "notifies"
     Notifications ||--o{ Logs : "triggered_by"
     Configurations ||--o{ Exchanges : "configures"
     Configurations ||--o{ Pairs : "configures"
@@ -73,5 +259,4 @@ erDiagram
     Simulator ||--o{ Exchanges : "simulates"
     Simulator ||--o{ Orders : "simulates"
     Simulator ||--o{ Prices : "simulates"
-    
-    ```
+```
